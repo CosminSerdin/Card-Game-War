@@ -1,14 +1,12 @@
-#Card class
-#Suit,Rank,Value
-
 import random
-
+ 
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
 
 values = {'Two':2, 'Three':3, 'Four':4, 'Five':5, 'Six':6, 'Seven':7, 'Eight':8, 
             'Nine':9, 'Ten':10, 'Jack':11, 'Queen':12, 'King':13, 'Ace':14}
 
+# Create classes for a card, a deck of 52 cards and a player 
 class Card():
     
     def __init__(self,suit,rank):
@@ -59,18 +57,8 @@ class Player:
     
     def __str__(self):
         return f'Player {self.name} has {len(self.all_cards)} cards.'
-    
 
-player_one = Player('One')
-player_two = Player('Two')
-
-new_deck = Deck()
-new_deck.shuffle()
-
-for x in range(26):
-    player_one.add_cards(new_deck.deal_one())
-    player_two.add_cards(new_deck.deal_one())    
-
+# Game logic
 player_one = Player("One")
 player_two = Player("Two")
 
@@ -91,7 +79,7 @@ while game_on:
     round_num += 1
     print(f"Round {round_num}")
     
-    # Check to see if a player is out of cards:
+    # Check to see if a player is out of cards 
     if len(player_one.all_cards) == 0:
         print("Player One out of cards! Game Over")
         print("Player Two Wins!")
@@ -104,8 +92,8 @@ while game_on:
         game_on = False
         break
     
-    # Otherwise, the game is still on!
-    # Start a new round and reset current cards "on the table"
+    # Otherwise, the game is still on
+    # Start a new round and reset current cards "on the table"        
     player_one_cards = []
     player_one_cards.append(player_one.remove_one())
     
@@ -141,12 +129,12 @@ while game_on:
 
         else:
             print('WAR!')
-            # This occurs when the cards are equal.
+            # The cards have an equal rank
             # We'll grab another card each and continue the current war.
             
             # First check to see if player has enough cards
             
-            # Check to see if a player is out of cards:
+            # Check to see if a player is out of cards(if a player has less than 5 cards we consider the game over)
             if len(player_one.all_cards) < 5:
                 print("Player One unable to play war! Game Over at War")
                 print("Player Two Wins! Player One Loses!")
@@ -159,6 +147,7 @@ while game_on:
                 break
                 
             # Otherwise, we're still at war, so we'll add the next cards
+            # The rule of war: each player puts 5 cards on the table regardless of the 2 equal rank cards that started the "war"        
             else:
                 for num in range(5):
                     player_one_cards.append(player_one.remove_one())
